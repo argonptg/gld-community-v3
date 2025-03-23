@@ -1,0 +1,194 @@
+@use "sass:color";
+$light-grey: #363636;
+$dark-grey: #292929;
+$black: #1b1b1b;
+$text: #c7c7c7;
+$highlight: #0094C6;
+$error: #C5283D;
+$online: #14CC60;
+$radius: 16px;
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 16px;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 95%;
+        height: 100px;
+
+        padding: 16px;
+        border-radius: $radius;
+
+        background-color: $light-grey;
+
+        color: $text;
+        font-family: "Titillium Web", sans-serif;
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: $radius;
+        }
+
+        .name {
+            padding-left: 16px;
+            height: 100px;
+
+            .online {
+                position: relative;
+                top: 0px;
+                color: $online;
+            }
+
+            .current-game {
+                position: relative;
+                top: -2px;
+                font-size: 20px;
+            }
+
+            h1, p, span {
+                margin: 0;
+            }
+
+            span {
+                position: relative;
+                top: -8px;
+
+                color: color.adjust($text, $lightness: -30%);
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        margin-top: 16px;
+        width: 100%;
+
+        .games {
+            flex-grow: 1;
+
+            .played {      
+                display: flex;
+                flex-direction: row; 
+                justify-content: space-between;
+
+                padding: 10px;
+                margin-right: 16px;
+                border-radius: $radius;
+
+                background-color: $light-grey;
+
+                color: $text;
+                font-family: "Titillium Web", sans-serif;
+            }
+
+            .game {
+                display: flex;
+                flex-direction: row; 
+                justify-content: space-between;
+
+                // height: 147px;
+
+                // padding: 10px;
+                margin: 16px 16px 0 0;
+                border-radius: $radius;
+                
+                background-color: $light-grey;
+
+                color: $text;
+                font-family: "Titillium Web", sans-serif;
+
+                .cover {
+                    display: flex;
+                    flex-direction: row;
+                    
+                    &::after {
+                        content: '';
+                        z-index: 10;
+                        height: 147px;
+                        width: 97px;
+                        display: block;
+                        position: absolute;
+
+                        left: 11px;
+                        background: linear-gradient(-90deg, $light-grey 0%, rgba(0, 0, 0, 0) 50%);
+                    }
+
+                    img {
+                        aspect-ratio: 2 / 3;
+                        width: 98px;
+                        height: 147px;
+                        border-radius: $radius 0 0 $radius;
+                        z-index: 0;
+                    }
+                }
+
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+
+                    padding: 10px;
+
+                    h1 {
+                        margin: 0;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        .friends {
+            width: 150px;
+            padding: 10px;
+            border-radius: $radius;
+
+            background-color: $light-grey;
+
+            color: $text;
+            font-family: "Titillium Web", sans-serif;
+
+            .follower {
+                margin-top: 8px;
+
+                display: flex;
+                flex-direction: row;
+
+                img {
+                    width: 45px;
+                    height: 45px;
+
+                    border-radius: calc($radius / 2);
+                }
+
+                .names {
+                    display: flex;
+                    flex-direction: column;
+                    text-decoration: none;
+
+                    margin-left: 5px;
+                    
+                    .display {
+                        color: $text;
+                    }
+
+                    .username {
+                        position: relative;
+
+                        top: -5px;
+                        color: color.adjust($text, $lightness: -30%);
+                    }
+                }
+            }
+        }
+    }
+}
