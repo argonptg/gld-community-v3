@@ -50,7 +50,5 @@
 				</div>
 			{/each}
 		{/if}
-	{:else}
-
 	{/if}
 </div>
