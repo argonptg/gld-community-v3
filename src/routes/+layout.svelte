@@ -1,5 +1,5 @@
 <script lang="ts">
-	import './layout.scss';
+	import "$lib/styles/layout.scss"
 	//import { authStore, getPfp, pb } from '$lib/pocketbase';
 	let { children, data } = $props();
 	

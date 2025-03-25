@@ -3,7 +3,7 @@
 	import type { PageData, ActionData } from './$types';
 
 	// import { loginWithEmail, authStore } from '$lib/pocketbase';
-	import '../index.scss';
+	import '$lib/styles/login.scss';
 
 	// svelte-ignore non_reactive_update
 	let email: string, 

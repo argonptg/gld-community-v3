@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-    import './error.scss';
+    import '$lib/styles/error.scss';
 </script>
 
 <div class="error">

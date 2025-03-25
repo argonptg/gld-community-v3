@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { writable } from 'svelte/store';
-	import './index.scss';
+	import "$lib/styles/home.scss";
 
 	let { data } = $props();
 
@@ -14,7 +14,7 @@
 			action="/api/search"
 			method="POST"
 			use:enhance={() => {
-				return async ({ result, update }) => {
+				return async ({ result }) => {
 					// @ts-ignore
 					responseData.set(result.data as unknown as SearchData);
 				};
@@ -28,7 +28,7 @@
 
 		{#if $responseData !== undefined}
 			{#each $responseData.data as item}
-				<div class="profile">
+				<div class="search-profile">
 					<img src={
                         item.pictureUrl === "" ?
                         `https://api.dicebear.com/9.x/identicon/svg?seed=${item.username}&backgroundColor=ffdfbf,b6e3f4` :

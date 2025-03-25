@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../index.scss";
+    import "$lib/styles/settings.scss";
     import { profileStore } from "$lib/utils";
 
     let { data } = $props();

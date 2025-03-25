@@ -1,5 +1,5 @@
 <script lang="ts">
-	import './tos.scss';
+	import '$lib/styles/tos.scss';
 </script>
 
 <div class="tos">

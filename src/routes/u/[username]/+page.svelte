@@ -3,7 +3,7 @@
 	import PocketBase from "pocketbase";
 	import Games from '../../../components/games.svelte';
 	import Followers from '../../../components/followers.svelte';
-	import "./profile.scss";
+	import "$lib/styles/profile.scss";
 	import { onMount } from 'svelte';
 
 	let { data }: PageProps = $props();

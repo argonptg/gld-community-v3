@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { writable } from "svelte/store";
-    import { convertDurationToHours } from "$lib/utils";
 
     let { user } = $props();
     let foll = writable<FollowersResponse>({
@@ -19,6 +18,8 @@
             const res = await data.json();
 
             foll.set(res);
+        }).catch((err) => {
+            console.log(err)
         })
     })
 </script>

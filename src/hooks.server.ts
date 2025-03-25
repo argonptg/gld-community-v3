@@ -1,7 +1,8 @@
 import PocketBase from "pocketbase";
+import { POCKETBASE_SERVER } from "$env/static/private"
 
 export const handle = async ({ event, resolve }) => {
-    event.locals.pb = new PocketBase("http://192.168.1.81:8090"); // https://hardly-noon.pockethost.io
+    event.locals.pb = new PocketBase(POCKETBASE_SERVER); // https://hardly-noon.pockethost.io
 
     // load from cookie
     event.locals.pb.authStore.loadFromCookie(event.request.headers.get("cookie") || "");

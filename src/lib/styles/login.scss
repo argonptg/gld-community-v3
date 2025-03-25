@@ -1,0 +1,116 @@
+@import "./variables.scss";
+
+.login {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	form {
+		display: flex;
+		flex-direction: column;
+
+		width: 300px;
+		height: auto;
+
+		padding-bottom: 20px;
+		margin-top: 2rem;
+
+		border-radius: $radius;
+
+		align-items: center;
+		justify-content: center;
+
+		background-color: $light-grey;
+
+		p,
+		label {
+			font-weight: bold;
+			color: $text;
+			font-family: 'Titillium Web', sans-serif;
+		}
+
+		p {
+			font-size: 2rem;
+		}
+
+		input,
+		input[type='submit'] {
+			background-color: $dark-grey;
+			border: 5px solid $dark-grey;
+			border-radius: $radius - 5;
+
+			margin: 5px 0;
+
+			// width: 200px;
+
+			font-size: 1rem;
+			font-family: 'Titillium Web', sans-serif;
+			color: $text;
+		}
+
+		input[type='submit'] {
+			width: 100px;
+		}
+
+		input[type='submit']:hover {
+			cursor: pointer;
+		}
+
+		.error {
+			position: relative;
+
+			top: -16px;
+			color: $error;
+			font-family: 'Titillium Web';
+			border: 2px solid $error;
+			border-radius: $radius;
+			padding: 5px;
+		}
+
+		.btns {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.fields {
+			display: flex;
+			flex-direction: column;
+			width: 80%;
+
+			label {
+				text-align: left;
+			}
+		}
+
+		.tos {
+			margin: 0;
+
+			a {
+				color: $highlight;
+			}
+		}
+	}
+
+	.new-user {
+		display: flex;
+		justify-content: center;
+
+		border: 3px solid $light-grey;
+		border-radius: $radius;
+
+		margin-top: 16px;
+
+		width: 300px;
+
+		p {
+			margin: 16px;
+			font-family: 'Titillium Web';
+			color: $text;
+
+			a {
+				color: $highlight;
+			}
+		}
+	}
+}

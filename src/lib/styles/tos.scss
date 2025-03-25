@@ -1,0 +1,11 @@
+@import "./variables.scss";
+
+.tos,
+.ccpa,
+.gdpr,
+.lgpd {
+    color: $text;
+    font-family: $font-stack;
+
+    margin: 0 10%;
+}
