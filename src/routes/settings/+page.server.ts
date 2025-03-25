@@ -1,5 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
+import { getPfp, profileStore } from '$lib/utils';
 import type { Actions } from './$types';
+import type { RecordModel } from 'pocketbase';
 
 export const actions = {
     save: async ({ request, locals }) => {
@@ -45,6 +47,9 @@ export const actions = {
     }
 } satisfies Actions
 
-export const load = ({ locals }) => {
-    return locals.user;
+export const load = async ({ locals }) => {
+    return {
+        user: locals.user as RecordModel,
+        pfp: await getPfp(locals.pb, locals.user?.id || "", false)
+    };
 }

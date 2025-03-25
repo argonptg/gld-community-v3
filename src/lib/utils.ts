@@ -4,6 +4,8 @@ import { writable } from "svelte/store";
 export const profileStore = writable("");
 
 export const getPfp = async (pocketbase: PocketBase, recordId: string, update: boolean) => {
+    pocketbase.autoCancellation(false);
+
     const rawRecord = await pocketbase.collection("users").getOne(recordId);
     const record = structuredClone(rawRecord);
     
@@ -16,6 +18,8 @@ export const getPfp = async (pocketbase: PocketBase, recordId: string, update: b
         if (update) profileStore.set(`https://api.dicebear.com/9.x/identicon/svg?seed=${recordId}&backgroundColor=ffdfbf,b6e3f4`)
         return `https://api.dicebear.com/9.x/identicon/svg?seed=${recordId}&backgroundColor=ffdfbf,b6e3f4`
     }
+
+    pocketbase.autoCancellation(true);
 
     return picUrl;
 }

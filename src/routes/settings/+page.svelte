@@ -1,6 +1,7 @@
 <script lang="ts">
     import "$lib/styles/settings.scss";
-    import { profileStore } from "$lib/utils";
+    import { getPfp, profileStore } from "$lib/utils";
+	import { onMount } from "svelte";
 
     let { data } = $props();
 
@@ -33,10 +34,6 @@
         dialog.close();
     }
 
-    $effect(() => {
-        console.log(picture);
-    });
-
 </script>
 
 <div class="settings">
@@ -48,8 +45,8 @@
             <div class="picture">
                 <img src={
                         previewUrl || 
-                        $profileStore ||
-                        `https://api.dicebear.com/9.x/identicon/svg?seed=${data.username}&backgroundColor=ffdfbf,b6e3f4`
+                        data.pfp ||
+                        `https://api.dicebear.com/9.x/identicon/svg?seed=${data.user.username}&backgroundColor=ffdfbf,b6e3f4`
                     } 
                     alt="Preview"
                 >    
@@ -75,9 +72,9 @@
         <div class="fields">
             <div class="left">
                 <label for="displayName">Display name:</label>
-                <input type="text" name="displayName" placeholder={data.displayName}>
+                <input type="text" name="displayName" placeholder={data.user.displayName}>
                 <label for="email">Email:</label>
-                <input type="email" name="email" placeholder={data.email}>
+                <input type="email" name="email" placeholder={data.user.email}>
                 <label for="password">Password:</label>
                 <input type="password" name="password">
                 <label for="passwordConfirm">Password confirm:</label>
@@ -86,25 +83,25 @@
             <div class="right">
                 <div class="desc">
                     <label for="description">Description:</label>
-                    <textarea name="description" cols="29" rows="6" placeholder={data.description}></textarea>
+                    <textarea name="description" cols="29" rows="6" placeholder={data.user.description}></textarea>
                 </div>
 
                 <label class="switch">
-                    <input type="checkbox" name="hide_online" bind:checked={data.hide_online}>
+                    <input type="checkbox" name="hide_online" bind:checked={data.user.hide_online}>
                     <span>
                         Hide online presence
                     </span>
                 </label>
 
                 <label class="switch">
-                    <input type="checkbox" name="hide_playing" bind:checked={data.hide_playing}>
+                    <input type="checkbox" name="hide_playing" bind:checked={data.user.hide_playing}>
                     <span>
                         Hide currently playing
                     </span>
                 </label>
 
                 <label class="switch">
-                    <input type="checkbox" name="private_games" bind:checked={data.private_games}>
+                    <input type="checkbox" name="private_games" bind:checked={data.user.private_games}>
                     <span>
                         Hide games
                     </span>
