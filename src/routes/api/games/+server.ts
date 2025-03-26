@@ -11,7 +11,6 @@ export const POST = async ({ locals, request, fetch }) => {
             method: "POST",
             body: game.name
         }).then(response => response.json())
-
         grids.push(data.url);
     }
 

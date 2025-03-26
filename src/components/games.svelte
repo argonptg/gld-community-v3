@@ -24,8 +24,8 @@
 
             let resTime: number[] = [];
 
-            for (let i = 0; i < res.length; i++) {
-                let time = convertDurationToHours(res[i].playedTime || "0d 0h 0m 0s");
+            for (let i = 0; i < res.games.length; i++) {
+                let time = convertDurationToHours(res.games[i].playedTime || "0d 0h 0m 0s");
 
                 if (time === undefined) return;
                 resTime.push(time)

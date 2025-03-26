@@ -11,9 +11,9 @@
 
 	let online = $state(data.items[0].is_online);
 	let currentGame = $state(data.items[0].currently_playing);
+	const pb = new PocketBase("http://192.168.1.81:8090");
 
 	onMount(() => {
-		const pb = new PocketBase("http://192.168.1.81:8090");
 
 		pb.collection("users").subscribe(data.items[0].id, (event) => {
 			online = event.record.is_online;
@@ -34,6 +34,8 @@
 		if (browser) {
 			document.body.style.backgroundImage = "";
 		}
+
+		pb.collection("users").unsubscribe("*")
 	})
 </script>
 
@@ -58,12 +60,6 @@
 			<span>/u/{data.items[0].username}</span>
 			<p>{data.items[0].description}</p>
 		</div>
-
-		<!-- <div class="follow-btn">
-			<form action="?/follow" method="post">
-				<input type="submit" value="Follow">
-			</form>
-		</div> -->
 	</div>
 	<div class="content">
 		<Games id={data.items[0].id}/>
