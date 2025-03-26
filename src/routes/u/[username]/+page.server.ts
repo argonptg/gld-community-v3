@@ -18,7 +18,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	return {
 		...recordList,
 		profilePicture: pfp,
-		background: bg
+		background: bg,
+		currentId: locals.user?.id || ""
 	}
 };
 

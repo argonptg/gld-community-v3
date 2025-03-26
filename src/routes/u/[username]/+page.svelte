@@ -6,15 +6,16 @@
 	import "$lib/styles/profile.scss";
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { json } from '@sveltejs/kit';
 
 	let { data }: PageProps = $props();
 
 	let online = $state(data.items[0].is_online);
 	let currentGame = $state(data.items[0].currently_playing);
+	let isFollowing = $state();
 	const pb = new PocketBase("http://192.168.1.81:8090");
 
 	onMount(() => {
-
 		pb.collection("users").subscribe(data.items[0].id, (event) => {
 			online = event.record.is_online;
 			currentGame = event.record.currently_playing;
@@ -35,8 +36,19 @@
 			document.body.style.backgroundImage = "";
 		}
 
-		pb.collection("users").unsubscribe("*")
+		pb.collection("*").unsubscribe("*")
 	})
+
+	async function followUser() {
+		await fetch("/api/follow", {
+			method: "POST",
+			body: JSON.stringify({
+				followId: data.items[0].id
+			})
+		}).then(() => {
+			isFollowing = true;
+		})
+	}
 </script>
 
 <div class="profile">
@@ -60,6 +72,12 @@
 			<span>/u/{data.items[0].username}</span>
 			<p>{data.items[0].description}</p>
 		</div>
+
+		{#if data.items[0].id !== data.currentId}
+			<div class="follow-btn">
+				<button onclick={followUser}>Follow</button>
+			</div>
+		{/if}
 	</div>
 	<div class="content">
 		<Games id={data.items[0].id}/>
