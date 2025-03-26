@@ -4,7 +4,8 @@
 	import Games from '../../../components/games.svelte';
 	import Followers from '../../../components/followers.svelte';
 	import "$lib/styles/profile.scss";
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	let { data }: PageProps = $props();
 
@@ -18,7 +19,22 @@
 			online = event.record.is_online;
 			currentGame = event.record.currently_playing;
 		})
+
+		// this may or may not cause a bug...
+		document.body.style.backgroundImage = `url(${data.background})`;
+		document.body.style.backgroundSize = "cover";
+		document.body.style.backgroundPosition = "center";
+		document.body.style.backgroundRepeat = "no-repeat";
+
+		// so it doesn't look janky
+		document.body.style.height = '100vh';
 	});
+
+	onDestroy(() => {
+		if (browser) {
+			document.body.style.backgroundImage = "";
+		}
+	})
 </script>
 
 <div class="profile">

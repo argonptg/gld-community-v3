@@ -15,6 +15,10 @@
             })
         }).then(async (data) => {
             const res = await data.json();
+
+            // cheeky fix
+		    document.body.style.height = 'auto';
+
             games.set(res.games);
             grids.set(res.grids);
 

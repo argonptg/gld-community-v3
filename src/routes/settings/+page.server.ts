@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { getPfp, profileStore } from '$lib/utils';
+import { getPfp, getBg, profileStore } from '$lib/utils';
 import type { Actions } from './$types';
 import type { RecordModel } from 'pocketbase';
 
@@ -8,11 +8,10 @@ export const actions = {
         const formData = await request.formData();
         const data = Object.fromEntries([...formData])
 
-        const file = formData.get("picture") as File;
+        const pfpFile = formData.get("picture") as File;
+        const bgFile = formData.get("background") as File;
 
-        let payload: any = {
-
-        };
+        let payload: any = {};
 
         // hell
         if (data.displayName !== "") payload["displayName"] = data.displayName;
@@ -20,7 +19,8 @@ export const actions = {
         if (data.description !== "") payload["description"] = data.description;
         if (data.password !== "") payload["password"] = data.password; 
         if (data.passwordConfirm !== "") payload["passwordConfirm"] = data.passwordConfirm
-        if (file.size !== 0) payload["avatar"] = [ file ];
+        if (pfpFile.size !== 0) payload["avatar"] = [ pfpFile ];
+        if (bgFile.size !== 0) payload["background"] = [ bgFile ];
 
         // someone help me
         if (data.hide_online === "on") payload["hide_online"] = true;
@@ -50,6 +50,7 @@ export const actions = {
 export const load = async ({ locals }) => {
     return {
         user: locals.user as RecordModel,
-        pfp: await getPfp(locals.pb, locals.user?.id || "", false)
+        pfp: await getPfp(locals.pb, locals.user?.id || "", false),
+        bg: await getBg(locals.pb, locals.user?.id || "")
     };
 }

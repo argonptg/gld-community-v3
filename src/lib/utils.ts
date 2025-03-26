@@ -24,6 +24,24 @@ export const getPfp = async (pocketbase: PocketBase, recordId: string, update: b
     return picUrl;
 }
 
+export const getBg = async (pocketbase: PocketBase, recordId: string) => {
+    pocketbase.autoCancellation(false);
+
+    const rawRecord = await pocketbase.collection("users").getOne(recordId);
+    const record = structuredClone(rawRecord);
+    
+    const token = await pocketbase.files.getToken();
+    const picUrl = pocketbase.files.getURL(record, record.background, { token: token });
+
+    if (picUrl === undefined) {
+        return `https://api.dicebear.com/9.x/identicon/svg?seed=${recordId}&backgroundColor=ffdfbf,b6e3f4`
+    }
+
+    pocketbase.autoCancellation(true);
+
+    return picUrl;
+}
+
 export const convertDurationToHours = (duration: string): number => {
     if (duration === "") {
         return 0;

@@ -1,4 +1,4 @@
-import { getPfp } from '$lib/utils';
+import { getBg, getPfp } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -10,13 +10,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	});
 
 	const pfp = await getPfp(locals.pb, recordList.items[0].id, false);
+	const bg = await getBg(locals.pb, recordList.items[0].id);
 
 	// enables autocancelation
 	locals.pb.autoCancellation(true);
 
 	return {
 		...recordList,
-		profilePicture: pfp
+		profilePicture: pfp,
+		background: bg
 	}
 };
 

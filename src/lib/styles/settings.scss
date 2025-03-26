@@ -19,57 +19,116 @@
 			margin-bottom: 10px;
 		}
 
-		.pfp-upload {
+		.images {
 			display: flex;
 			flex-direction: row;
 
-			.picture {
+			.pfp-upload {
 				display: flex;
 				flex-direction: row;
-
-				&::before {
-					content: "";
-					display: block;
-					width: 100px;
-					height: 100px;
-
-					background-color: transparentize($light-grey, 0.5);
-					border-radius: $radius;
-
-					position: absolute;
-				}
-
-				img {
-					width: 100px;
-					height: 100px;
 	
-					border-radius: $radius;
+				.picture {
+					display: flex;
+					flex-direction: row;
+	
+					&::before {
+						content: "";
+						display: block;
+						width: 100px;
+						height: 100px;
+	
+						background-color: transparentize($light-grey, 0.5);
+						border-radius: $radius;
+	
+						position: absolute;
+					}
+	
+					img {
+						width: 100px;
+						height: 100px;
+		
+						border-radius: $radius;
+					}
+				}
+	
+				input[type="file"] {
+					display: none;
+				}
+				  
+				.custom-file-upload {
+					position: relative;
+	
+					left: -80px;
+					top: 24px;
+	
+					display: inline-block;
+					padding: 6px 12px;
+					cursor: pointer;
+	
+					svg {
+						width: 35px;
+						height: 35px;
+	
+						filter: drop-shadow(0px 10px 17px $black);
+	
+						fill: $text;
+					}
 				}
 			}
 
-			input[type="file"] {
-				display: none;
-			}
-			  
-			.custom-file-upload {
-				position: relative;
-
-				left: -80px;
-				top: 24px;
-
-				display: inline-block;
-				padding: 6px 12px;
-				cursor: pointer;
-
-				svg {
-					width: 35px;
-					height: 35px;
-
-					filter: drop-shadow(0px 10px 17px $black);
-
-					fill: $text;
+			.bg-upload {
+				display: flex;
+				flex-direction: row;
+	
+				.background {
+					display: flex;
+					flex-direction: row;
+	
+					&::before {
+						content: "";
+						display: block;
+						width: 130px;
+						height: 100px;
+	
+						background-color: transparentize($light-grey, 0.5);
+						border-radius: $radius;
+	
+						position: absolute;
+					}
+	
+					img {
+						width: 130px;
+						height: 100px;
+		
+						border-radius: $radius;
+					}
+				}
+	
+				input[type="file"] {
+					display: none;
+				}
+				  
+				.custom-file-upload {
+					position: relative;
+	
+					left: -95px;
+					top: 24px;
+	
+					display: inline-block;
+					padding: 6px 12px;
+					cursor: pointer;
+	
+					svg {
+						width: 35px;
+						height: 35px;
+	
+						filter: drop-shadow(0px 10px 17px $black);
+	
+						fill: $text;
+					}
 				}
 			}
+			
 		}
 
 		span {
