@@ -4,8 +4,6 @@ export const load = async ({ locals }) => {
     if (locals.user && locals.pb.authStore.isValid) {
         let picUrl = await getPfp(locals.pb, locals.user.id, true)
 
-        console.log(picUrl)
-
         if (picUrl === "") 
             picUrl = `https://api.dicebear.com/9.x/identicon/svg?seed=${locals.user.username}&backgroundColor=ffdfbf,b6e3f4`
 

@@ -28,10 +28,7 @@ export const actions = {
 		const formData = await request.formData();
 		const requestData = Object.assign([...formData])
 
-		const currentFollowers = await locals.pb.collection("followers")
-			.getFirstListItem(`follow = "${requestData.id}"`);
-
-		console.log(currentFollowers)
+		const currentFollowers = await locals.pb.collection("users").getOne(requestData.follow);
 
 		const data = {
 			followers: [

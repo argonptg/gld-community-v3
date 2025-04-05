@@ -1,15 +1,14 @@
 import { getPfp } from '$lib/utils.js';
 import { json } from '@sveltejs/kit';
 
-export const POST = async ({ locals, request, fetch }) => {
+export const POST = async ({ locals, request }) => {
     const requestData = await request.json();
     
     let profiles: string[] = [];
 
-    const recordData = await locals.pb.collection("followers")
-        .getFirstListItem(`follow = "${requestData.id}"`, {
-            expand: "followers"
-        });
+    const recordData = await locals.pb.collection("users").getOne(requestData.id, {
+        expand: "followers"
+    });
 
     try {
         for (let i = 0; i < recordData.expand?.followers.length; i++) {

@@ -15,6 +15,6 @@ export const POST = async ({ request }) => {
     });
 
     return json({
-        url: grid[0].url
+        url: grid[0].url || `https://dummyimage.com/600x900/000/${query}`
     });
 }

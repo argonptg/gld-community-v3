@@ -16,7 +16,6 @@
             })
         }).then(async (data) => {
             const res = await data.json();
-
             foll.set(res);
         }).catch((err) => {
             console.log(err)

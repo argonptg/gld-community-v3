@@ -13,6 +13,16 @@ interface SearchUserData {
 	description: string;
 }
 
+interface Achievement {
+	defaultvalue: number;
+	description: string;
+	displayName: string;
+	hidden: number;
+	icon: string;
+	icongray: string;
+	name: string;
+}
+
 interface Game {
 	id: number;
 	name: string;
@@ -22,6 +32,14 @@ interface Game {
 	playedTime: string;
 	LastPlayed: string;
 	iop: string;
+	autobackup: boolean;
+	autorestore: boolean;
+	closekey: number;
+	completedachievements: number;
+	forceshell: boolean;
+	gbid: string;
+	lockedachievements: Achievement[];
+	unlockedachievements: Achievement[];
 }
 
 interface Follower {

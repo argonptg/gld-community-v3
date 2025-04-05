@@ -1,26 +1,16 @@
 import { getPfp } from '$lib/utils.js';
 import { json } from '@sveltejs/kit';
 
-export const POST = async ({ locals, request, fetch }) => {
+export const POST = async ({ locals, request }) => {
     const requestData = await request.json();
 
-    const recordData = await locals.pb.collection("followers").getList(1, 1, {
-        filter: `follow = "${requestData.followId}"`
-    })
-    
-    const oldFollowers = recordData.items[0].followers
+    const recordData = await locals.pb.collection("users").getOne(requestData.followId);
+    let pojoData = structuredClone(recordData);
+    pojoData.followers.push(locals.user?.id);
 
-    const data = {
-        followers: [
-            ...oldFollowers,
-            locals.user?.id
-        ],
-        follow: requestData.followId
-    }
+    await locals.pb.collection("users").update("d8sr9g2uf9i2y2f", pojoData)
 
-    await locals.pb.collection("followers").update(
-        recordData.items[0].id, data
-    )
+    // await locals.pb.collection("users").update(recordData.id, pojoData)
 
     return json({
         success: true
