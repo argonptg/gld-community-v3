@@ -1,5 +1,6 @@
 import type { Actions } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
+import type { RecordModel } from "pocketbase";
 
 export const actions = {
     register: async ({ request, locals }) => {
@@ -20,9 +21,16 @@ export const actions = {
                 email: `${data.email}`
             }
 
-            const { token, record } = await locals.pb
+            const user = await locals.pb
                 .collection("users")
                 .create(reqData)
+
+            await locals.pb
+                .collection("games")
+                .create({
+                    owner: user.id,
+                    games: null
+                })
 
             locals.pb.authStore.clear(); // forces the user to sign in
         } catch (err: any) {
