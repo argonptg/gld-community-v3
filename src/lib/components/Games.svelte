@@ -6,38 +6,44 @@
 	let userId = $props();
 	let games = writable<Game[]>([]);
 	let grids = writable<string[]>([]);
+	let error = $state('');
 	let playedTime = $state();
 
 	$effect(() => {
-        games.set([]);
-        grids.set([]);
-        playedTime = undefined;
+		games.set([]);
+		grids.set([]);
+		playedTime = undefined;
 
 		fetch('/api/games', {
 			method: 'POST',
 			body: JSON.stringify({
 				id: userId
 			})
-		}).then(async (data) => {
-			const res = await data.json();
+		})
+			.then(async (data) => {
+				const res = await data.json();
 
-			// cheeky fix
-			document.body.style.height = 'auto';
+				// cheeky fix
+				document.body.style.height = 'auto';
 
-			games.set(res.games);
-			grids.set(res.grids);
+				games.set(res.games);
+				grids.set(res.grids);
 
-			let resTime: number[] = [];
+				let resTime: number[] = [];
 
-			for (let i = 0; i < res.games.length; i++) {
-				let time = convertDurationToHours(res.games[i].playedTime || '0d 0h 0m 0s');
+				for (let i = 0; i < res.games.length; i++) {
+					let time = convertDurationToHours(res.games[i].playedTime || '0d 0h 0m 0s');
 
-				if (time === undefined) return;
-				resTime.push(time);
-			}
+					if (time === undefined) return;
+					resTime.push(time);
+				}
 
-			playedTime = resTime.reduce((acc, current) => acc + current, 0).toFixed(2);
-		});
+				playedTime = resTime.reduce((acc, current) => acc + current, 0).toFixed(2);
+			})
+			.catch((e) => {
+				games.set([]);
+				error = 'No games found.';
+			});
 	});
 
 	let dialogs: HTMLDialogElement[] = []; // ✅ array to hold each game's dialog
@@ -74,11 +80,16 @@
 
 							<dialog class="ach-list" bind:this={dialogs[i]}>
 								<h1
-                                    style={`
-                                        ${game.lockedachievements.length <= 0 ?
-                                        `color: #FFA336`: ""}
+									style={`
+                                        ${
+																					game.lockedachievements.length <= 0
+																						? `color: #FFA336`
+																						: ''
+																				}
                                     `}
-                                >Achievements:</h1>
+								>
+									Achievements:
+								</h1>
 								<div class="achievements">
 									{#each game.unlockedachievements as unlocked}
 										<img class="achievement" src={unlocked.icon} alt={unlocked.name} />
@@ -87,14 +98,16 @@
 										<img class="achievement" src={locked.icongray} alt={locked.name} />
 									{/each}
 								</div>
-                                <button onclick={() => dialogs[i]?.close()}>
-                                    Close
-                                </button>
+								<button onclick={() => dialogs[i]?.close()}> Close </button>
 							</dialog>
 						{/if}
 					</div>
 				</div>
 			{/each}
+		{:else}
+			<div class="played">
+				<h2 id="error">{error}</h2>
+			</div>
 		{/if}
 	{:else}
 		<div class="played">

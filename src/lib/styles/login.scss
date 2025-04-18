@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 .login {
 	display: flex;
@@ -60,12 +60,20 @@
 		.error {
 			position: relative;
 
+			display: flex;
+			flex-direction: row;
+
 			top: -16px;
 			color: $error;
 			font-family: 'Titillium Web';
 			border: 2px solid $error;
 			border-radius: $radius;
 			padding: 5px;
+
+			svg {
+				width: 15px;
+				padding-right: 10px;
+			}
 		}
 
 		.btns {
