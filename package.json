@@ -26,6 +26,7 @@
 		"vite": "^6.2.3"
 	},
 	"dependencies": {
+		"@types/bun": "^1.2.10",
 		"pocketbase": "^0.25.2",
 		"scss": "^0.2.4",
 		"steamgriddb": "^2.2.0"
