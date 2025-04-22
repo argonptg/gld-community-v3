@@ -16,7 +16,7 @@ export const actions = {
 			});
 
 		try {
-			const randNum = Math.floor(Math.random() * 5);
+			const randNum = Math.floor(Math.random() * 4);
 
 			const imagePath = path.resolve(`src/assets/${randNum}.jpg`);
 			const imageBuf = await fs.readFile(imagePath);
@@ -34,12 +34,14 @@ export const actions = {
 				avatar: imageFile
 			};
 
-			const user = await locals.pb.collection('users').create(reqData);
-
-			await locals.pb.collection('games').create({
-				owner: user.id,
-				games: null
-			});
+			await locals.pb.collection('users')
+				.create(reqData)
+				.then(async (user) => {
+					await locals.pb.collection('games').create({
+						owner: user.id,
+						games: null
+					});
+				});
 
 			locals.pb.authStore.clear(); // forces the user to sign in
 		} catch (err: any) {

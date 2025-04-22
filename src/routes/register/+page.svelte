@@ -15,11 +15,13 @@
 	<form method="POST" action="?/register" use:enhance>
 		<p>Sign up for GLD</p>
 
-		{#if form?.incorrect}
+		{#if form}
+			{#if form?.incorrect}
 			<div class="error">Email or username already in use</div>
-		{/if}
-		{#if !form?.match}
-			<div class="error">Passwords don't match</div>
+			{/if}
+			{#if !form?.match}
+				<div class="error">Passwords don't match</div>
+			{/if}
 		{/if}
 
 		<div class="fields">
