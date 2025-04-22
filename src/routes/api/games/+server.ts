@@ -1,21 +1,26 @@
 export const POST = async ({ locals, request, fetch }) => {
-    const requestData = await request.json();
-    
-    const recordData = await locals.pb.collection("games")
-        .getFirstListItem(`owner = "${requestData.id.id}"`);
+	const requestData = await request.json();
 
-    let grids = [];
+	const recordData = await locals.pb
+		.collection('games')
+		.getFirstListItem(`owner = "${requestData.id.id}"`);
 
-    for (let game of recordData.games) {
-        const data = await fetch("/api/cover-art", {
-            method: "POST",
-            body: game.name
-        }).then(response => response.json())
-        grids.push(data.url);
-    }
+	// Parallel fetches
+	const gridPromises = recordData.games.map((game: any) =>
+		fetch(`/api/cover-art?q=${encodeURIComponent(game.name)}`)
+			.then((res: any) => res.json())
+			.then((data: any) => data.url)
+	);
 
-    return new Response(JSON.stringify({
-        games: recordData.games,
-        grids: grids,
-    }));
-}
+	const grids = await Promise.all(gridPromises);
+
+	return new Response(
+		JSON.stringify({
+			games: recordData.games,
+			grids: grids
+		}),
+		{
+			headers: { 'Content-Type': 'application/json' }
+		}
+	);
+};

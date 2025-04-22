@@ -1,6 +1,9 @@
+export const prerender = false;
+
 import { getBg, getPfp } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 import { POCKETBASE_SERVER } from '$env/static/private';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// disables autocancelation for 500 fix

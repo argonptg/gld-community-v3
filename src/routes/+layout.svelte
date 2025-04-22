@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import '$lib/styles/layout.scss';
 	import Avatar from '$lib/components/Avatar.svelte';
 	let { children, data } = $props();
+
+	injectAnalytics(); // vercel analytics stuff
 </script>
 
 <div class="container">
@@ -24,7 +27,7 @@
 					<Avatar
 						imgUrl={data.pfp}
 						username={data.profile.username}
-						href={`/u/${data.profile.username}`}
+						href={`/u/${data.profile.id === 'd8sr9g2uf9i2y2f' ? 'jma' : data.profile.username}`}
 					/>
 				</li>
 			{:else}

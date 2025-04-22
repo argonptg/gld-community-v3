@@ -43,6 +43,9 @@
 			document.body.style.backgroundImage = '';
 		}
 
+		online = false;
+		currentGame = '';
+
 		pb.collection('*').unsubscribe('*');
 	});
 
@@ -63,24 +66,22 @@
 			})
 		});
 	}
-
-	let pfpUrl =
-		data.profilePicture ||
-		`https://api.dicebear.com/9.x/identicon/svg?seed=${data.items[0].username}&backgroundColor=ffdfbf,b6e3f4`;
 </script>
 
 <div class="profile">
 	<div class="header">
 		<div class="wrapper">
-			<Avatar imgUrl={pfpUrl} username={data.items[0].username} />
+			<Avatar imgUrl={data.profilePicture} username={data.items[0].username} />
 
 			<div class="name">
 				{#if online}
 					<h1>
 						<span class="online">{data.items[0].displayName}</span>
-						<span class="current-game">
-							- {currentGame}
-						</span>
+						{#if currentGame.length > 0}
+							<span class="current-game">
+								- {currentGame}
+							</span>
+						{/if}
 					</h1>
 				{:else}
 					<h1>{data.items[0].displayName}</h1>
