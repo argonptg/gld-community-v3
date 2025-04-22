@@ -40,7 +40,7 @@
 </script>
 
 <div class="login">
-	<form method="POST" action="?/login" on:submit={handleSubmit} bind:this={formElement}>
+	<form method="POST" action="?/login" onsubmit={handleSubmit} bind:this={formElement}>
 		<p>Sign in to GLD</p>
 		{#if form?.invalid}
 			<div class="error">

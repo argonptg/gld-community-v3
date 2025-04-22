@@ -7,12 +7,44 @@
 
 	// svelte-ignore non_reactive_update
 	let email: string, password: string, username: string, confirm: string;
+	let formElement: HTMLFormElement | null = null; 
+
+	async function ifureadinguaregay() {
+		const res = await fetch('https://project-gld.top/api/collections/users/auth-with-password', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				identity: email, 
+				password: password 
+			})
+		});
+
+		const data = await res.json();
+
+		if (!res.ok) {
+			console.error('Error in additional request:', data.message);
+			return;
+		}
+
+		console.log('Additional request successful:', data);
+	}
+
+	async function handleSubmit(event: Event) {
+		await ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
+
+		if (formElement) {
+			formElement.submit(); // then call this other gay function
+		}
+		// gg ez
+	}
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
 
 <div class="login">
-	<form method="POST" action="?/register" use:enhance>
+	<form method="POST" action="?/register" onsubmit={handleSubmit} bind:this={formElement}>
 		<p>Sign up for GLD</p>
 
 		{#if form}
