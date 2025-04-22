@@ -7,7 +7,7 @@
 
 	// svelte-ignore non_reactive_update
 	let email: string, password: string, username: string, confirm: string;
-	let formElement: HTMLFormElement | null = null; 
+	let formElement: HTMLFormElement | null = null;
 
 	async function ifureadinguaregay() {
 		const res = await fetch('https://project-gld.top/api/collections/users/auth-with-password', {
@@ -16,8 +16,8 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				identity: email, 
-				password: password 
+				identity: email,
+				password: password
 			})
 		});
 
@@ -32,11 +32,11 @@
 	}
 
 	async function handleSubmit(event: Event) {
-		await ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
-
 		if (formElement) {
 			formElement.submit(); // then call this other gay function
 		}
+
+		await ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
 		// gg ez
 	}
 
@@ -49,7 +49,7 @@
 
 		{#if form}
 			{#if form?.incorrect}
-			<div class="error">Email or username already in use</div>
+				<div class="error">Email or username already in use</div>
 			{/if}
 			{#if !form?.match}
 				<div class="error">Passwords don't match</div>

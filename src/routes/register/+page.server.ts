@@ -34,7 +34,8 @@ export const actions = {
 				avatar: imageFile
 			};
 
-			await locals.pb.collection('users')
+			await locals.pb
+				.collection('users')
 				.create(reqData)
 				.then(async (user) => {
 					await locals.pb.collection('games').create({
@@ -54,7 +55,7 @@ export const actions = {
 			});
 		}
 
-		return redirect(303, '/login');
+		// return redirect(303, '/login');
 	}
 } satisfies Actions;
 
