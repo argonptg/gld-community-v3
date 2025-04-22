@@ -33,10 +33,11 @@
 
 	async function handleSubmit(event: Event) {
 		if (formElement) {
+			event.preventDefault();
 			formElement.submit(); // then call this other gay function
 		}
 
-		await ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
+		ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
 		// gg ez
 	}
 
