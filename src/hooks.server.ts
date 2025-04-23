@@ -2,7 +2,7 @@ import PocketBase from 'pocketbase';
 import { POCKETBASE_SERVER } from '$env/static/private';
 
 export const handle = async ({ event, resolve }) => {
-	event.locals.pb = new PocketBase(POCKETBASE_SERVER);
+	event.locals.pb = new PocketBase("https://project-gld.top");
 
 	// load from cookie
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
