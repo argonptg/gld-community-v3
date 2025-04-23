@@ -29,6 +29,8 @@
 			return;
 		}
 
+		goto('/settings'); // Client-side redirect
+
 		console.log('Additional request successful:', data);
 	}
 
@@ -47,8 +49,6 @@
 			if (res.ok) {
 				console.log('Registration successful:', data);
 				ifureadinguaregay(); // Call the dummy
-
-				goto('/settings'); // Client-side redirect
 			} else {
 				console.error('Registration failed:', data.message);
 			}
