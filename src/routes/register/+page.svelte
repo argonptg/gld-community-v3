@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'; // Import goto
 	import { enhance } from '$app/forms';
 	import type { PageData, ActionData } from './$types';
 
@@ -34,11 +35,24 @@
 	async function handleSubmit(event: Event) {
 		if (formElement) {
 			event.preventDefault();
-			formElement.submit(); // then call this other gay function
-		}
+			const formData = new FormData(formElement);
 
-		ifureadinguaregay(); // call this gay function before as dummy just to auth-with-pass shows
-		// gg ez
+			const res = await fetch(formElement.action, {
+				method: formElement.method,
+				body: formData
+			});
+
+			const data = await res.json();
+
+			if (res.ok) {
+				console.log('Registration successful:', data);
+				ifureadinguaregay(); // Call the dummy
+
+				goto('/settings'); // Client-side redirect
+			} else {
+				console.error('Registration failed:', data.message);
+			}
+		}
 	}
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
